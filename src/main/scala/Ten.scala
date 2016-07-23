@@ -6,6 +6,7 @@ object Main extends App {
   println("last item is:%s".format(last(list)))
   println("Last two element is: %s".format(last_two(list)))
   println("kth element is:" + at(list, 4))
+  println("Length: %d".format(length(list)))
 
   //Write a function last : 'a list -> 'a option that returns the last element of a list. (easy)
   @tailrec
@@ -31,6 +32,16 @@ object Main extends App {
   def at[A](list: List[A], n: Int): Option[A] = list match {
     case Nil => None
     case h :: t => if (n == 0) Some(h) else at(t, n - 1)
+  }
+
+  //Find the number of elements of a list. (easy)
+  def length[A] (list: List[A]): Int = {
+    @tailrec
+    def aux(l: List[A], len: Int): Int = l match {
+      case Nil => len
+      case h :: t => aux(t, len + 1)
+    }
+    aux(list, 0)
   }
 
 }
