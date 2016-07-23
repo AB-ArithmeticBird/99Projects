@@ -1,8 +1,8 @@
-package First
+package onetoten
 
 import scala.annotation.tailrec
 
-object Main extends App {
+object Problem extends App {
   println("hello world")
   val list = Range(0, 10).toList
   println("last item is:%s".format(last(list)))
