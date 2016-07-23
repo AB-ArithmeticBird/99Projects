@@ -1,3 +1,5 @@
+package First
+
 import scala.annotation.tailrec
 
 object Main extends App {
