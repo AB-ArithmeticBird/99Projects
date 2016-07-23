@@ -7,6 +7,7 @@ target/
 lib_managed/
 src_managed/
 project/boot/
+project/target/*
 *.history
 *.cache
 ### Scala template
@@ -29,3 +30,9 @@ project/plugins/project/
 *.worksheet
 *.xml
 export/*
+.idea/modules/root-99projects.iml
+project/project/
+src/main/java/
+src/main/resources/
+src/main/scala-2.11/
+src/test/
