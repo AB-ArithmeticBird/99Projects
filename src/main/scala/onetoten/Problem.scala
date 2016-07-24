@@ -5,11 +5,13 @@ import scala.annotation.tailrec
 object Problem extends App {
   println("hello world")
   val list = Range(0, 10).toList
+  println("List is %s".format(list))
   println("last item is:%s".format(last(list)))
   println("Last two element is: %s".format(last_two(list)))
   println("kth element is:" + at(list, 4))
   println("Length: %d".format(length(list)))
   println("reverse is "+ reverse(list))
+  println("is palindrome? %s".format(isPalindrome(list)))
 
   //Write a function last : 'a list -> 'a option that returns the last element of a list. (easy)
   @tailrec
@@ -56,5 +58,7 @@ object Problem extends App {
     }
     aux(list, List())
   }
+
+  def isPalindrome[A](list: List[A]): Boolean = list == reverse(list)
 
 }
