@@ -9,6 +9,7 @@ object Problem extends App {
   println("Last two element is: %s".format(last_two(list)))
   println("kth element is:" + at(list, 4))
   println("Length: %d".format(length(list)))
+  println("reverse is "+ reverse(list))
 
   //Write a function last : 'a list -> 'a option that returns the last element of a list. (easy)
   @tailrec
@@ -44,6 +45,16 @@ object Problem extends App {
       case h :: t => aux(t, len + 1)
     }
     aux(list, 0)
+  }
+
+  //Reverse a list. (easy)
+
+  def reverse[A](list:List[A]) :List[A] = {
+    def aux(l:List[A], accumulator: List[A]):List[A] = l match {
+      case Nil => accumulator
+      case h::t => aux(t, h::accumulator)
+    }
+    aux(list, List())
   }
 
 }
