@@ -23,6 +23,12 @@ object Problem extends App {
 
   val duplicateList = List("a","a","a","a","b","c","c","a","a","d","e","e","e","e")
   println("remove subsequent duplicates: %s".format(compress(duplicateList)))
+  val list1 = List("a", "b")
+  val list2 = List("a", "a")
+  val list3 = List("a")
+  println("remove subsequent duplicates: %s".format(compress(list1)))
+  println("remove subsequent duplicates: %s".format(compress(list2)))
+  println("remove subsequent duplicates: %s".format(compress(list3)))
 
   //Write a function last : 'a list -> 'a option that returns the last element of a list. (easy)
   @tailrec
@@ -87,17 +93,15 @@ object Problem extends App {
    reverse(aux(list, List[A]()))
   }
 
-  @tailrec
-  def dropWhile[A](list: List[A], elem: A): List[A] = list match {
-      case Nil => Nil
-      case h :: t => if (!(h == elem)) list else dropWhile(t, elem)
-    }
   //Eliminate consecutive duplicates of list elements. (medium)
   def compress[A](list: List[A]): List[A] = {
     @tailrec
     def doCompress(lst: List[A], result: List[A]): List[A] = lst match {
       case Nil => result
-      case h :: t => doCompress(dropWhile(t, h), h :: result)
+      case h :: t => t match {
+        case Nil => h :: result
+        case th :: tt => if(h == th) doCompress(t, result) else doCompress(t, h :: result)
+      }
     }
     reverse(doCompress(list, Nil))
   }
