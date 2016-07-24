@@ -3,6 +3,11 @@ package onetoten
 import scala.annotation.tailrec
 
 object Problem extends App {
+
+  sealed trait Node[A]
+  case class One[A](value:A) extends Node[A]
+  case class Many[A](value: List[Node[A]]) extends Node[A]
+
   println("hello world")
   val list = Range(0, 10).toList
   println("List is %s".format(list))
@@ -12,6 +17,9 @@ object Problem extends App {
   println("Length: %d".format(length(list)))
   println("reverse is "+ reverse(list))
   println("is palindrome? %s".format(isPalindrome(list)))
+
+  val example: List[Node[String]] = List(One("a"), Many(List(One("b"), Many(List(One("c"), One("d"))), One("e"))))
+  println("flattening "+ flatten(example))
 
   //Write a function last : 'a list -> 'a option that returns the last element of a list. (easy)
   @tailrec
@@ -61,4 +69,25 @@ object Problem extends App {
 
   def isPalindrome[A](list: List[A]): Boolean = list == reverse(list)
 
+  //Flatten a nested list structure. (medium)
+
+
+
+  def flatten[A](list: List[Node[A]]):List[A] = {
+
+    @tailrec
+    def aux(l:List[Node[A]], acc:List[A]): List[A]= l match {
+      case Nil => acc
+      case h :: t => h match {
+        case One(v) => aux(t, v::acc)
+        case Many(li) => aux(li, acc)
+      }
+    }
+
+   reverse(aux(list, List[A]()))
+  }
+
 }
+
+
+
