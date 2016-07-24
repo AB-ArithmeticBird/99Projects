@@ -21,6 +21,9 @@ object Problem extends App {
   val example: List[Node[String]] = List(One("a"), Many(List(One("b"), Many(List(One("c"), One("d"))), One("e"))))
   println("flattening "+ flatten(example))
 
+  val duplicateList = List("a","a","a","a","b","c","c","a","a","d","e","e","e","e")
+  println("remove subsequent duplicates: %s".format(compress(duplicateList)))
+
   //Write a function last : 'a list -> 'a option that returns the last element of a list. (easy)
   @tailrec
   def last[A](list: List[A]): Option[A] = list match {
@@ -70,9 +73,6 @@ object Problem extends App {
   def isPalindrome[A](list: List[A]): Boolean = list == reverse(list)
 
   //Flatten a nested list structure. (medium)
-
-
-
   def flatten[A](list: List[Node[A]]):List[A] = {
 
     @tailrec
@@ -85,6 +85,21 @@ object Problem extends App {
     }
 
    reverse(aux(list, List[A]()))
+  }
+
+  @tailrec
+  def dropWhile[A](list: List[A], elem: A): List[A] = list match {
+      case Nil => Nil
+      case h :: t => if (!(h == elem)) list else dropWhile(t, elem)
+    }
+  //Eliminate consecutive duplicates of list elements. (medium)
+  def compress[A](list: List[A]): List[A] = {
+    @tailrec
+    def doCompress(lst: List[A], result: List[A]): List[A] = lst match {
+      case Nil => result
+      case h :: t => doCompress(dropWhile(t, h), h :: result)
+    }
+    reverse(doCompress(list, Nil))
   }
 
 }
